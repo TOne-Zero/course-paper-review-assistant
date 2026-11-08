@@ -13,7 +13,7 @@
 - 导出 ZIP，内含每篇 Markdown、JSON 和批次清单；目前不直接生成 Word/PDF 格式报告。
 - 独立模拟入口，使用原创虚构示例和固定比例分数，不请求外部模型。
 
-前端采用 React 18 / TypeScript / Tailwind CSS / ECharts 5；Python 后端同时提供 API 和构建后的前端。另保留旧版 Streamlit 界面。
+前端采用 React 18 / TypeScript / Tailwind CSS / ECharts 5；Python 后端同时提供 API 和构建后的前端。
 
 ## 环境要求
 
@@ -41,7 +41,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 Copy-Item .env.example .env
 
-cd frontend-preview
+cd frontend
 npm ci
 npm run build
 cd ..
@@ -60,7 +60,7 @@ python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 cp .env.example .env
 
-cd frontend-preview
+cd frontend
 npm ci
 npm run build
 cd ..
@@ -134,12 +134,12 @@ Office / LibreOffice 由部署者另行安装，仓库不包含它们。
 后端按部署步骤启动。另开终端运行前端开发服务器：
 
 ```bash
-cd frontend-preview
+cd frontend
 npm ci
 npm run dev
 ```
 
-访问 <http://127.0.0.1:5173/>，Vite 将 `/api` 转发到 8765。正式本地使用仍执行 `npm run build`，由 Python 提供 `frontend-preview/dist-app/`。
+访问 <http://127.0.0.1:5173/>，Vite 将 `/api` 转发到 8765。正式本地使用仍执行 `npm run build`，由 Python 提供 `frontend/dist-app/`。
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests
@@ -147,7 +147,6 @@ npm run dev
 
 macOS / Linux 将解释器替换为 `.venv/bin/python`。自动测试使用原创虚构文件、临时配置和受控模型响应，不需要真实 API 密钥，不代表评分效度验证。
 
-旧版界面：虚拟环境内执行 `python -m streamlit run app.py`，或 Windows 双击 `启动旧版Streamlit.cmd`；访问 <http://127.0.0.1:8501/>。重新生成示例 PDF 时，额外安装 `requirements-demo.txt`，运行 `python -m scripts.build_demo_pdf`。
 
 ## 常见问题
 
@@ -155,7 +154,7 @@ macOS / Linux 将解释器替换为 `.venv/bin/python`。自动测试使用原�
 | --- | --- |
 | 网页打不开 | 保持 Python 服务终端运行，检查端口；打开网址本身不会启动服务 |
 | 8765 被占用 | 改用 `--port 8766` 并访问 8766；开发代理需同步改端口 |
-| 缺少前端构建 | 在 frontend-preview 运行 `npm ci`、`npm run build` |
+| 缺少前端构建 | 在 frontend 运行 `npm ci`、`npm run build` |
 | 依赖安装失败 | 检查 Python 版本、网络和包索引，保留完整报错排查 |
 | 测试连接成功但评阅失败 | 小请求测试不验证长文、费用、上下文及结构化评分能力，查看该篇错误提示 |
 | Word 读取失败 | 检查转换器和文件是否加密、损坏，也可先自行另存 PDF |
@@ -165,13 +164,10 @@ macOS / Linux 将解释器替换为 `.venv/bin/python`。自动测试使用原�
 
 ```text
 paper_assistant/     Python 解析、模型适配、校验、评分和报告
-frontend-preview/    React 源码、依赖锁文件及字体许可
+frontend/    React 源码、依赖锁文件及字体许可
 rubrics/            三套内置评分标准
-format_rules/       旧版格式检查示例
 examples/           原创虚构 PDF 和文本源
 tests/              自动测试及虚构文件生成器
-scripts/            演示、流程核对和源码打包工具
-assets/             旧版静态资源与来源说明
 references/         标准设计参考依据
 docs/               运行及接口补充说明
 ```

@@ -351,7 +351,7 @@ class WebApplication:
 
 
 def make_server(app, host='127.0.0.1', port=8765, dist=None):
-    dist = (Path(dist) if dist else PROJECT_ROOT / 'frontend-preview' / 'dist-app').resolve()
+    dist = (Path(dist) if dist else PROJECT_ROOT / 'frontend' / 'dist-app').resolve()
     class Handler(BaseHTTPRequestHandler):
         server_version = 'PaperAssistant'
         def log_message(self, *_):

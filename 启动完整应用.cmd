@@ -18,8 +18,8 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-if not exist "frontend-preview\dist-app\index.html" (
-  pushd frontend-preview
+if not exist "frontend\dist-app\index.html" (
+  pushd frontend
   call npm.cmd ci
   if errorlevel 1 (
     popd

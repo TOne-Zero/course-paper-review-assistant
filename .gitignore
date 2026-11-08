@@ -1,8 +1,8 @@
 .venv/
 venv/
 node_modules/
-frontend-preview/dist/
-frontend-preview/dist-app/
+frontend/dist/
+frontend/dist-app/
 *.tsbuildinfo
 __pycache__/
 *.py[cod]
