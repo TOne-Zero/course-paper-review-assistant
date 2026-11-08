@@ -1,0 +1,31 @@
+{
+  "name": "paper-review-editorial-preview",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5173 --strictPort"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/noto-serif-sc": "^5.2.8",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "echarts": "5.6.0",
+    "fflate": "0.8.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "3.4.17",
+    "typescript": "^5.9.3",
+    "vite": "6.4.5"
+  }
+}

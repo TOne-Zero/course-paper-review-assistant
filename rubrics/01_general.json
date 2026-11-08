@@ -1,0 +1,13 @@
+{
+  "id": "general_paper",
+  "name": "通识课程论文（示例）",
+  "version": "1.0",
+  "description": "演示用 100 分制标准，正式使用前应由任课教师确认并调整。",
+  "dimensions": [
+    {"id": "topic", "name": "选题与问题意识", "max_score": 20, "description": "选题与课程相关，研究问题清晰，范围合理。"},
+    {"id": "argument", "name": "论证与分析", "max_score": 30, "description": "论点明确，推理连贯，能够解释材料与结论的关系。"},
+    {"id": "evidence", "name": "材料与证据", "max_score": 20, "description": "证据与论点相关，来源可追溯，并说明材料的适用边界。"},
+    {"id": "structure", "name": "结构与表达", "max_score": 15, "description": "结构完整，段落衔接清晰，语言准确。"},
+    {"id": "citation", "name": "引用与格式", "max_score": 15, "description": "引文与参考文献相互对应，格式符合课程要求。"}
+  ]
+}

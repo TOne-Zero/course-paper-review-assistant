@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "id": "demo_structure",
+  "name": "论文基本结构检出（演示规范）",
+  "version": "1.0",
+  "source": "本项目自拟的少量演示规则，未采用真实学校规范；不是中国传媒大学或任何学校官方要求。",
+  "scope": "单篇文本型课程论文；仅检查摘要、关键词和参考文献标签及非空内容是否在可可靠提取的文本中出现。",
+  "is_demo": true,
+  "rules": [
+    {
+      "id": "abstract_presence",
+      "name": "摘要标题与内容检出",
+      "source": "本项目演示规范第 1 条（自拟，无学校官方依据）",
+      "version": "1.0",
+      "scope": "全文提取文本，排除明显目录页和不可靠页面；不检查摘要质量、字数或字号。",
+      "method": "section_presence",
+      "parameters": {"section": "摘要"},
+      "requirement": "检测到独立摘要标题或摘要标签，并能引用其后的非空内容；仅表示检出，不代表摘要写作或全部格式合格。",
+      "enabled": true
+    },
+    {
+      "id": "keywords_presence",
+      "name": "关键词标签与内容检出",
+      "source": "本项目演示规范第 2 条（自拟，无学校官方依据）",
+      "version": "1.0",
+      "scope": "全文提取文本，排除明显目录页和不可靠页面；不规定关键词数量、分隔符或词汇质量。",
+      "method": "section_presence",
+      "parameters": {"section": "关键词"},
+      "requirement": "检测到独立关键词标签和非空关键词内容；不把正文中提及“关键词”一词当作标签。",
+      "enabled": true
+    },
+    {
+      "id": "references_presence",
+      "name": "参考文献标题与内容检出",
+      "source": "本项目演示规范第 3 条（自拟，无学校官方依据）",
+      "version": "1.0",
+      "scope": "全文提取文本，排除明显目录页和不可靠页面；不校验文献真实性、引用格式或文内对应关系。",
+      "method": "section_presence",
+      "parameters": {"section": "参考文献"},
+      "requirement": "检测到独立参考文献标题及非空后续内容；不把目录条目或正文提及参考文献作为检出依据。",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "research_methods",
+  "name": "研究方法课程论文（示例）",
+  "version": "1.0",
+  "description": "演示用 100 分制研究论文标准，不代表任何学校的正式评分规则。",
+  "dimensions": [
+    {"id": "question", "name": "研究问题与文献", "max_score": 20, "description": "问题明确，能够结合相关文献说明研究背景。"},
+    {"id": "method", "name": "研究设计与方法", "max_score": 30, "description": "方法与问题相适配，变量、样本与研究过程交代清楚。"},
+    {"id": "analysis", "name": "结果分析与讨论", "max_score": 25, "description": "结果呈现清楚，讨论有证据支持，并考虑局限。"},
+    {"id": "reproducibility", "name": "材料透明与可复核性", "max_score": 15, "description": "交代数据与材料来源，提供必要的复核信息。"},
+    {"id": "writing", "name": "写作与引用规范", "max_score": 10, "description": "行文规范，结构完整，引用与参考文献可核对。"}
+  ]
+}

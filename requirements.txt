@@ -1,0 +1,6 @@
+# 已在 Python 3.12.10 下验证；建议使用 Python 3.11 或 3.12。
+streamlit==1.66.1
+pypdf==6.21.2
+pdfplumber==0.11.10
+python-dotenv==1.2.4
+httpx==0.28.1

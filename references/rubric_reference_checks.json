@@ -1,0 +1,92 @@
+{
+  "checked_on": "2026-10-30",
+  "scope": "核验题名、作者等可见书目信息和相关摘要/部分正文；不声称逐篇全文复现，不把论文研究中的准确率当作本应用性能。",
+  "references": [
+    {
+      "id": "R01",
+      "user_citation": "吴怡, 李灿. 基于机器学习的学位论文质量自动评估系统研究[J]. 无线互联科技, 2025(22).",
+      "status": "待一手核验",
+      "verified_url": null,
+      "use": "暂不作为示例指标或分值依据",
+      "note": "检索到同题名的期刊目录线索，但尚未取得可交叉核对作者与正文的一手页面。保留用户提供的书目，不补造页码或 DOI。"
+    },
+    {
+      "id": "R02",
+      "citation": "张彪, 陈云伟, 高道斌. 融合学术贡献与创新价值的论文学术影响力预测分级方法[J]. 图书情报工作, 2025, 69(2): 108-120.",
+      "doi": "10.13266/j.issn.0252-3116.2025.02.010",
+      "status": "期刊官网书目与摘要已核验",
+      "verified_url": "https://www.lis.ac.cn/CN/10.13266/j.issn.0252-3116.2025.02.010",
+      "use": "背景参考",
+      "note": "研究目标是学术影响力预测分级；不把其概率等级或影响力指标转换为学生课程成绩。"
+    },
+    {
+      "id": "R03",
+      "citation": "Thelwall M, Kousha K, Wilson P, et al. Predicting article quality scores with machine learning: The U.K. Research Excellence Framework[J]. Quantitative Science Studies, 2023, 4(2): 547-573.",
+      "user_doi": "10.1162/qss_a_00232",
+      "corrected_doi": "10.1162/qss_a_00258",
+      "status": "DOI 更正线索已核对机构存档检索记录",
+      "verified_url": "https://discovery.dundee.ac.uk/files/106284170/qss_a_00258.pdf",
+      "use": "背景参考，不用于课程权重",
+      "note": "作者机构存档检索结果列出的题名、卷页与用户给定条目相符，DOI 为 00258；直接获取机构 PDF 返回 403，出版社/注册接口本轮亦无法读取。未声称已通读该文全文。"
+    },
+    {
+      "id": "R04",
+      "citation": "Sun Q, Lu Y, Xia K, et al. Comprehensive Manuscript Assessment with Text Summarization Using 69707 articles[EB/OL]. arXiv:2503.20835, 2025.",
+      "status": "arXiv 书目与摘要已核验，预印本",
+      "verified_url": "https://arxiv.org/abs/2503.20835",
+      "use": "背景参考",
+      "note": "研究涉及未来被引量预测，不能据此把引用次数或期刊指标当作课程论文质量分。"
+    },
+    {
+      "id": "R05",
+      "citation": "Kang D, Ammar W, Dalvi B, et al. A Dataset of Peer Reviews (PeerRead): Collection, Insights and NLP Applications[C]. NAACL-HLT, 2018: 1647-1661.",
+      "doi": "10.18653/v1/N18-1149",
+      "status": "ACL 官方书目及相关正文已核验",
+      "verified_url": "https://aclanthology.org/N18-1149/",
+      "use": "维度设计的概念参考",
+      "note": "参考其适切性、清晰性、论证正确性及相关工作比较等审稿方面；本项目七维度、权重和分档均为课程情境改编，未采用文中相关系数作为权重。"
+    },
+    {
+      "id": "R06",
+      "citation": "Wang Q, Zeng Q, Huang L, et al. ReviewRobot: Explainable Paper Review Generation based on Knowledge Synthesis[C]. INLG, 2020: 384-397.",
+      "doi": "10.18653/v1/2020.inlg-1.44",
+      "status": "ACL 官方书目及相关正文已核验",
+      "verified_url": "https://aclanthology.org/2020.inlg-1.44/",
+      "use": "证据与建议可解释性的设计参考",
+      "note": "参考按评价类别提供证据及建设性意见的思想；未实现其知识图谱方法，不移用其性能结果。"
+    },
+    {
+      "id": "R07",
+      "citation": "Yuan W, Liu P, Neubig G. Can We Automate Scientific Reviewing?[J]. Journal of Artificial Intelligence Research, 2022, 75: 171-212.",
+      "doi": "10.1613/jair.1.12862",
+      "status": "期刊官网题名、作者、日期、DOI 与摘要已核验",
+      "verified_url": "https://www.jair.org/index.php/jair/article/view/12862",
+      "use": "可核对证据、建议质量和教师复核的边界参考",
+      "note": "自动审稿并非完整可靠的人工替代；本应用当前仍为模拟评分，教师决定成绩。卷页沿用用户书目，本轮未逐页核验全文。"
+    },
+    {
+      "id": "R08",
+      "citation": "Zheng W, Xu Y, Lin X, et al. Navigating Through Paper Flood: Advancing LLM-based Paper Evaluation through Domain-Aware Retrieval and Latent Reasoning[EB/OL]. arXiv:2508.05129, 2025.",
+      "status": "arXiv 书目与摘要已核验，预印本",
+      "verified_url": "https://arxiv.org/abs/2508.05129",
+      "use": "后续真实模型方案背景",
+      "note": "涉及领域相关工作检索与推理；本轮没有实现检索系统，不把论文报告的结果作为本应用效果。"
+    },
+    {
+      "id": "R09",
+      "citation": "Zhu M, Weng Y, Yang L, et al. DeepReview: Improving LLM-based Paper Review with Human-like Deep Thinking Process[EB/OL]. arXiv:2503.08569, 2025.",
+      "status": "arXiv 书目与摘要已核验，预印本",
+      "verified_url": "https://arxiv.org/abs/2503.08569",
+      "use": "结构化审阅、相关工作与证据链的设计参考",
+      "note": "只借鉴结构化分析和依据证据讨论的方向；没有训练、下载或运行 DeepReviewer，也不宣称本应用具备该研究性能。"
+    },
+    {
+      "id": "R10",
+      "citation": "Zhao B, Zhang J, Whitehouse C, et al. APRES: An Agentic Paper Revision and Evaluation System[EB/OL]. arXiv:2603.03142, 2026.",
+      "status": "arXiv 书目与摘要已核验，预印本",
+      "verified_url": "https://arxiv.org/abs/2603.03142",
+      "use": "修订与评价流程背景",
+      "note": "引用量预测目标不等于课程学习目标；没有采用其自动发现的量表或改写论文系统，不据此设定本项目权重。"
+    }
+  ]
+}

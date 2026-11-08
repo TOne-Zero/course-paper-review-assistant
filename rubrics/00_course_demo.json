@@ -1,0 +1,327 @@
+{
+  "schema_version": "2.0",
+  "id": "course_demo",
+  "name": "课程论文综合评价（演示标准）",
+  "version": "1.1",
+  "description": "本配置为参考审稿研究后面向课程论文改编的演示标准，不是中国传媒大学或任何高校官方评分标准。具体分值和分档为演示设置，正式使用须由任课教师确认。",
+  "is_demo": true,
+  "total_score": 100,
+  "dimensions": [
+    {
+      "id": "question",
+      "name": "研究问题",
+      "max_score": 15,
+      "description": "研究问题清楚、范围适当，与课程学习目标一致；能交代研究动机。课程论文不要求达到顶级期刊的原创贡献。",
+      "checklist": [
+        "是否提出可回答的具体问题，而非仅给出宽泛主题",
+        "核心概念、对象和研究范围是否交代清楚",
+        "是否说明问题与课程目标及已有认识的关系"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "没有清楚的研究问题，或主题与课程任务明显不符。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "提出了问题，但对象、概念或范围含糊，研究动机说明较弱。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "问题具体，范围与课程任务适配，概念和研究动机基本清楚。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "问题、范围和动机清楚，能结合已有认识说明课程学习层面的研究价值，并说明边界。"
+        }
+      ],
+      "reference_ids": [
+        "R05",
+        "R09"
+      ]
+    },
+    {
+      "id": "literature",
+      "name": "文献与理论",
+      "max_score": 15,
+      "description": "相关文献与理论用于支持问题界定和解释，能区分已有成果与本文观点；不按引用数量给分。",
+      "checklist": [
+        "引用的核心文献是否相关且提供可核对的书目信息",
+        "是否准确说明理论概念及其与研究问题的关系",
+        "是否比较已有研究，而非仅罗列结论",
+        "是否明确区分他人成果、材料事实和作者观点"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "关键概念无依据，文献与问题脱节，或无法区分他人成果与本文观点。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "有相关文献或理论介绍，但多为罗列，对问题的支持关系不足。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "能准确概述相关研究并作比较，理论与问题或分析框架有明确联系。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "能综合不同观点，解释理论适用范围和相关工作的不足，并用其支持本文分析。"
+        }
+      ],
+      "reference_ids": [
+        "R05",
+        "R06",
+        "R09"
+      ]
+    },
+    {
+      "id": "method",
+      "name": "方法",
+      "max_score": 20,
+      "description": "方法与研究问题相匹配，材料来源和实施步骤清楚。理论、质性、量化等路径均可，不强制实验或统计检验。",
+      "checklist": [
+        "为何采用该方法，以及方法如何回答研究问题，是否说明",
+        "数据、文本、案例等材料的来源与选择依据是否可追溯",
+        "操作、分析或推导步骤是否足以供教师核对",
+        "是否交代方法局限；涉及伦理要求时是否说明相应处理"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "方法缺失或明显不适配问题，关键材料与步骤无法核对。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "说明了方法和部分材料，但选择理由或实施步骤不充分。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "方法适配问题，材料来源、选择依据和主要步骤清楚，能说明主要局限。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "方法选择有依据，关键步骤可复核，能讨论材料或设计风险，并提供与研究类型相称的检查。"
+        }
+      ],
+      "reference_ids": [
+        "R05",
+        "R07"
+      ]
+    },
+    {
+      "id": "analysis",
+      "name": "分析",
+      "max_score": 20,
+      "description": "论点、证据和推理形成可核对的链条，解释与材料相符，考虑替代解释或不确定性。",
+      "checklist": [
+        "主要论点是否有对应的材料、数据或推导支持",
+        "是否解释证据如何支持判断，而非仅重复材料",
+        "方法实施、分析结果与研究问题是否对应",
+        "是否考虑反例、替代解释或不确定性，避免把相关关系直接当作因果"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "以断言代替分析，主要判断缺乏支持，或存在明显推理错误。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "展示了材料或结果，但证据到论点的联系较弱，对结果解释不足。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "主要判断有对应证据，推理连贯，能解释结果并指出主要不确定性。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "证据链充分清楚，能比较不同解释，结合反例或边界条件形成有分寸的分析。"
+        }
+      ],
+      "reference_ids": [
+        "R05",
+        "R06",
+        "R09"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "name": "结论",
+      "max_score": 10,
+      "description": "结论回应研究问题，受已有分析支持，说明适用边界和局限，不新增未经支持的重大判断。",
+      "checklist": [
+        "结论是否回应开头的研究问题",
+        "是否区分研究发现、推断和建议，并与前文对应",
+        "是否说明局限和适用范围，避免外推过度"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "结论缺失、与问题无关，或明显超出前文证据。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "能概括部分内容，但回应不完整，边界或局限说明不足。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "结论回应主要问题，依据清楚，能够说明主要局限。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "结论精炼并逐项回应问题，区分发现与建议，清楚交代适用条件及后续研究方向。"
+        }
+      ],
+      "reference_ids": [
+        "R06",
+        "R07"
+      ]
+    },
+    {
+      "id": "writing",
+      "name": "写作",
+      "max_score": 10,
+      "description": "结构与表达便于理解，概念一致，图表说明能支持阅读；不以模型生成概率判断写作质量。",
+      "checklist": [
+        "章节和段落是否围绕问题组织，衔接是否清楚",
+        "术语、概念及符号是否前后一致，语言是否准确",
+        "图表标题、标注及正文解释是否便于理解"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "结构混乱或表达严重含糊，读者难以理解主要论点。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "大体可读，但段落衔接、术语或图表解释存在多处不足。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "结构清楚，表达准确，术语一致，图表有必要说明。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "论述紧凑连贯，复杂内容解释清晰，文字与图表配合有效，避免冗余及含糊表述。"
+        }
+      ],
+      "reference_ids": [
+        "R05",
+        "R09"
+      ]
+    },
+    {
+      "id": "format",
+      "name": "格式",
+      "max_score": 10,
+      "description": "按教师明确给出的课程格式要求检查；未提供要求时仅检查内部一致性，不推断违反某校规范。",
+      "checklist": [
+        "文内引文与参考文献是否对应，核心书目信息是否完整",
+        "标题层级、图表编号、单位和符号是否一致",
+        "如有明确课程要求，版式是否遵守；不能可靠判断的项目应留待教师核对"
+      ],
+      "score_bands": [
+        {
+          "label": "有待改进",
+          "min_ratio": 0.0,
+          "max_ratio": 0.6,
+          "description": "内部格式或引文对应关系存在明显缺失，影响查阅和核对。"
+        },
+        {
+          "label": "基本达到",
+          "min_ratio": 0.6,
+          "max_ratio": 0.75,
+          "description": "基本具备格式要素，但引文、编号或样式有多处不一致。"
+        },
+        {
+          "label": "较好达到",
+          "min_ratio": 0.75,
+          "max_ratio": 0.9,
+          "description": "引用与文献基本对应，标题和图表编号一致；可核对的课程要求基本满足。"
+        },
+        {
+          "label": "充分达到",
+          "min_ratio": 0.9,
+          "max_ratio": 1.0,
+          "description": "书目信息与引用对应完整，内部样式一致；已明确且可核对的课程要求得到满足。"
+        }
+      ],
+      "reference_ids": []
+    }
+  ],
+  "references": [
+    {
+      "id": "R05",
+      "citation": "Kang D, Ammar W, Dalvi B, et al. A Dataset of Peer Reviews (PeerRead): Collection, Insights and NLP Applications[C]. NAACL-HLT, 2018: 1647-1661.",
+      "url": "https://aclanthology.org/N18-1149/",
+      "note": "参考其适切性、清晰性、论证正确性及相关工作比较等审稿方面；本项目七维度、权重和分档均为课程情境改编，未采用文中相关系数作为权重。"
+    },
+    {
+      "id": "R06",
+      "citation": "Wang Q, Zeng Q, Huang L, et al. ReviewRobot: Explainable Paper Review Generation based on Knowledge Synthesis[C]. INLG, 2020: 384-397.",
+      "url": "https://aclanthology.org/2020.inlg-1.44/",
+      "note": "参考按评价类别提供证据及建设性意见的思想；未实现其知识图谱方法，不移用其性能结果。"
+    },
+    {
+      "id": "R07",
+      "citation": "Yuan W, Liu P, Neubig G. Can We Automate Scientific Reviewing?[J]. Journal of Artificial Intelligence Research, 2022, 75: 171-212.",
+      "url": "https://www.jair.org/index.php/jair/article/view/12862",
+      "note": "自动审稿并非完整可靠的人工替代；本应用只提供参考评价，教师决定成绩。卷页沿用用户书目，本轮未逐页核验全文。"
+    },
+    {
+      "id": "R09",
+      "citation": "Zhu M, Weng Y, Yang L, et al. DeepReview: Improving LLM-based Paper Review with Human-like Deep Thinking Process[EB/OL]. arXiv:2503.08569, 2025.",
+      "url": "https://arxiv.org/abs/2503.08569",
+      "note": "只借鉴结构化分析和依据证据讨论的方向；没有训练、下载或运行 DeepReviewer，也不宣称本应用具备该研究性能。"
+    }
+  ],
+  "weight_note": "七维度权重及 60% / 75% / 90% 分档界限为本项目教学演示设置，不是文献原始量表，未经课程评分效度验证。文献仅提供概念和审阅思路；不以引用次数、期刊等级或文献数量替代内容质量。教师可按课程目标调整。"
+}
