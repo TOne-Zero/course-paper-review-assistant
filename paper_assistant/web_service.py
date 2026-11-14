@@ -27,9 +27,10 @@ from paper_assistant.criteria_store import CriteriaStore
 from paper_assistant.rubric_defaults import default_score_bands, weighted_rubric
 from paper_assistant.model_configuration import save_model_settings
 from paper_assistant.document_parser import parse_document, validate_document
+from paper_assistant.history_store import HistoryStore
 from paper_assistant.privacy import configure_private_logging
 from paper_assistant.providers import PROVIDERS, provider_for_url, resolve_api_key
-from paper_assistant.report_exporter import report_data
+from paper_assistant.report_exporter import export_markdown, report_data
 from paper_assistant.rubrics import load_rubrics, parse_rubric_config, rubric_to_dict
 from paper_assistant.schemas import AssistantError
 from paper_assistant.validator import parse_model_json
@@ -51,9 +52,10 @@ class Session:
 
 
 class WebApplication:
-    def __init__(self, *, env_path=None, settings=None, analyzer=analyze_document, criteria_directory=None):
+    def __init__(self, *, env_path=None, settings=None, analyzer=analyze_document, criteria_directory=None, history_path=None):
         self.rubrics = load_rubrics()
         self.criteria_store = CriteriaStore(criteria_directory or (Path(env_path).parent / 'criteria' if env_path else PROJECT_ROOT / 'rubrics' / 'user_settings'), self.rubrics)
+        self.history = HistoryStore(history_path or PROJECT_ROOT / '.runtime' / 'history.db')
         self.catalogs, self.active_ids = {}, {}
         for mode in ('real', 'mock'):
             self.catalogs[mode], self.active_ids[mode] = self.criteria_store.load(mode)
@@ -349,6 +351,60 @@ class WebApplication:
             snapshots = {key: dict(value, analysis_error=value.get('error', '')) for key, value in session.snapshots.items()}
             return export_batch(papers, snapshots)
 
+    def archives(self, session):
+        return self.history.payload(session.mode)
+
+    def archive_batch(self, session, payload):
+        with session.lock:
+            self.idle(session)
+            records, skipped = [], 0
+            for paper in session.papers:
+                snapshot = session.snapshots.get(paper.key, {})
+                run = snapshot.get('analysis_run')
+                if run is None:
+                    skipped += 1
+                    continue
+                history, confirmation = snapshot.get('teacher_history', []), snapshot.get('teacher_confirmation')
+                try:
+                    data = report_data(run.result, history, confirmation)
+                    markdown = export_markdown(run.result, history, confirmation).decode('utf-8')
+                except AssistantError:
+                    skipped += 1
+                    continue
+                review = data['teacher_review']
+                if review['total_score'] is None:
+                    skipped += 1
+                    continue
+                maximum = data.get('max_total_score') or 100
+                raw = round(review['total_score'] / maximum * 100, 2)
+                records.append({'name': paper.name, 'title': Path(paper.name.replace('\\', '/')).stem[:200],
+                                'raw_total': raw, 'reviewed': bool(review['confirmed']),
+                                'teacher_note': snapshot.get('teacher_note', ''),
+                                'dimensions': [{'id': d['dimension_id'], 'name': d['name'], 'score': d['score'], 'max_score': d['max_score']}
+                                               for d in review['dimensions']],
+                                'report_md': markdown,
+                                'report_json': json.dumps(data, ensure_ascii=False, allow_nan=False)})
+            if not records:
+                raise AssistantError('没有可归档的完整评分；请先完成评阅并补齐缺分维度。')
+            result = self.history.create_batch(session.mode,
+                                               {**payload, 'rubricName': session.rubric.name, 'rubricVersion': session.rubric.version}, records)
+            return {**result, 'skipped': skipped}
+
+    def archive_detail(self, session, class_id):
+        return self.history.detail(session.mode, class_id)
+
+    def archive_normalize(self, session, class_id, payload):
+        return self.history.normalize(session.mode, class_id, payload)
+
+    def delete_archive_class(self, session, class_id):
+        self.history.delete_class(session.mode, class_id)
+
+    def delete_archive_batch(self, session, batch_id):
+        self.history.delete_batch(session.mode, batch_id)
+
+    def export_archive(self, session, class_id):
+        return self.history.export_class(session.mode, class_id)
+
 
 def make_server(app, host='127.0.0.1', port=8765, dist=None):
     dist = (Path(dist) if dist else PROJECT_ROOT / 'frontend' / 'dist-app').resolve()
@@ -357,7 +413,7 @@ def make_server(app, host='127.0.0.1', port=8765, dist=None):
         def log_message(self, *_):
             pass
 
-        def _send(self, status, body, content_type='application/json; charset=utf-8', cookie=None, attachment=False):
+        def _send(self, status, body, content_type='application/json; charset=utf-8', cookie=None, attachment=False, filename='paper-reports.zip'):
             self.send_response(status)
             self.send_header('Content-Type', content_type)
             self.send_header('Content-Length', str(len(body)))
@@ -368,7 +424,7 @@ def make_server(app, host='127.0.0.1', port=8765, dist=None):
             if cookie:
                 self.send_header('Set-Cookie', f'paper_session={cookie}; HttpOnly; SameSite=Strict; Path=/')
             if attachment:
-                self.send_header('Content-Disposition', 'attachment; filename="paper-reports.zip"')
+                self.send_header('Content-Disposition', f'attachment; filename="{filename}"')
             self.end_headers()
             self.wfile.write(body)
 
@@ -444,6 +500,29 @@ def make_server(app, host='127.0.0.1', port=8765, dist=None):
             if self.command == 'GET' and path == '/api/reports':
                 ids = parse_qs(urlsplit(self.path).query).get('id')
                 self._send(200, app.export(session, ids), 'application/zip', attachment=True); return
+            if self.command == 'GET' and path == '/api/archives':
+                self._json(200, app.archives(session), cookie); return
+            if self.command == 'POST' and path == '/api/archives':
+                self._json(200, app.archive_batch(session, self._payload()), cookie); return
+            if path.startswith('/api/archives/'):
+                rest = path[len('/api/archives/'):]
+                head, _, tail = rest.partition('/')
+                if head == 'classes' and tail:
+                    class_id, _, action = tail.partition('/')
+                    if self.command == 'GET' and not action:
+                        self._json(200, app.archive_detail(session, class_id), cookie); return
+                    if self.command == 'POST' and action == 'normalize':
+                        self._json(200, app.archive_normalize(session, class_id, self._payload()), cookie); return
+                    if self.command == 'GET' and action == 'export':
+                        self._send(200, app.export_archive(session, class_id), 'application/zip',
+                                   attachment=True, filename='class-scores.zip'); return
+                    if self.command == 'DELETE' and not action:
+                        app.delete_archive_class(session, class_id)
+                        self._json(200, {'deleted': True}, cookie); return
+                if head == 'batches' and tail and self.command == 'DELETE':
+                    app.delete_archive_batch(session, tail)
+                    self._json(200, {'deleted': True}, cookie); return
+                self._json(404, {'error': '接口不存在。'}); return
             if self.command == 'POST' and path == '/api/upload':
                 content_type = self.headers.get('Content-Type', '')
                 if not content_type.startswith('multipart/form-data;'):

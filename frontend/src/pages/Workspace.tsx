@@ -7,7 +7,7 @@ interface Props {
   papers: Paper[]; weights: number[]; dimensions:string[]; criteria: string; rubrics:Rubric[]; running: boolean; busy:boolean; simulation:boolean; progress:string; consent:boolean; onConsent:(value:boolean)=>void;
   configured: boolean; onSettings: () => void; onCriteria: (value: string) => void;
   onFiles: (files: File[]) => void; onRemove: (id: string) => void;
-  onSelect: (id: string) => void; onStart: () => void; onDemo: () => void; onExport: () => void;
+  onSelect: (id: string) => void; onStart: () => void; onDemo: () => void; onExport: () => void; onArchive: () => void;
 }
 
 export function Workspace(props: Props) {
@@ -61,6 +61,6 @@ export function Workspace(props: Props) {
         <p className="text-caption text-muted pt-3">图表仅统计已有评分的论文。</p>
       </aside>
     </div>
-    <footer className="workspace-footer"><button className="text-action" onClick={props.onExport} disabled={!papers.some(hasResult)}>导出全部报告 <Icon name="download" size={18} /></button><span className="text-caption text-muted">图表仅统计总分完整的论文；AI辅助评价，最终成绩由教师确定</span></footer>
+    <footer className="workspace-footer"><div className="flex flex-wrap items-center gap-8"><button className="text-action" onClick={props.onArchive} disabled={!papers.some(hasScore)}>归档本批 <Icon name="file" size={18} /></button><button className="text-action" onClick={props.onExport} disabled={!papers.some(hasResult)}>导出全部报告 <Icon name="download" size={18} /></button></div><span className="text-caption text-muted">图表仅统计总分完整的论文；AI辅助评价，最终成绩由教师确定</span></footer>
   </main>;
 }

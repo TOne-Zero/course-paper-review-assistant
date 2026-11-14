@@ -1,7 +1,7 @@
 export const DIMENSIONS=['研究问题','文献与理论','研究方法','分析与论证','结论与价值','学术写作','格式规范'];
 export const DEFAULT_WEIGHTS=[15,15,20,20,10,10,10];
 export type PaperStatus='done'|'review'|'processing'|'queued'|'failed';
-export type Page='cover'|'workspace'|'review';
+export type Page='cover'|'workspace'|'review'|'history';
 export type SettingsSection='model'|'criteria'|'data';
 export interface DimensionResult {dimension_id:string;name:string;score:number|null;max_score:number;reason:string;needs_teacher_review:boolean;evidence:{page:number;quote:string;verified:boolean;chunk_id:string}[];suggestions:string[];check_scores?:{index:number;text:string;score:number|null;max_score:number;reason:string}[]}
 export interface Report {evaluation_id:string;is_mock:boolean;summary:string;notice:string;dimensions:DimensionResult[];diagnostics:string[];teacher_review:{total_score:number|null;confirmed:boolean}}
@@ -19,5 +19,14 @@ export const hasResult=(paper:Paper)=>!!paper.report;
 export const hasScore=(paper:Paper)=>!!paper.report&&paper.totalScore!==null;
 export function paperScore(paper:Paper,_weights:number[]){return paper.totalScore??0;}
 export function batchSummary(papers:Paper[],weights:number[]){const scored=papers.filter(hasScore),scores=scored.map(p=>paperScore(p,weights));return {scored,count:scored.length,processed:papers.filter(hasResult).length,mean:scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:null,pendingReview:papers.filter(p=>p.report&&!p.reviewed).length,means:weights.map((_,i)=>scored.length?scored.reduce((sum,p)=>sum+(p.scores[i]??0),0)/scored.length:0),bins:[0,0,0,0,0].map((_,i)=>scores.filter(s=>i===0?s<60:i===4?s>=90:s>=50+i*10&&s<60+i*10).length)};}
-export function readPage():Page{const v=new URLSearchParams(location.search).get('view');return v==='workspace'||v==='review'?v:'cover';}
+export interface ArchiveClass {id:string;name:string;course:string;paperCount:number;scoredCount:number;passCount:number;failCount:number;rawMean:number|null;adjustedMean:number|null;passRate:number|null;threshold:number;normalizedAt:string|null;lastArchivedAt:string|null}
+export type ScoreShape='balanced'|'high'|'low'|'custom';
+export interface NormalizeParams {threshold:number;passMean:number;passSd:number;failMean:number;failSd:number;decimals:number;shape:ScoreShape;intensity:number}
+export interface ArchiveClassDetail extends ArchiveClass,NormalizeParams {}
+export interface ArchivedPaper {id:string;batchId:string;name:string;title:string;rawTotal:number|null;adjustedTotal:number|null;band:'pass'|'fail'|null;reviewed:boolean;teacherNote:string;dimensions:{id:string;name:string;score:number|null;max_score:number}[]}
+export interface ArchiveBatch {id:string;createdAt:string;rubricName:string;rubricVersion:string;paperCount:number}
+export interface ArchiveStats {rawMean:number|null;rawSd:number|null;adjustedMean:number|null;adjustedSd:number|null;passRate:number|null;rawBins:number[];adjustedBins:number[]}
+export interface ArchiveDetail {class:ArchiveClassDetail;papers:ArchivedPaper[];batches:ArchiveBatch[];stats:ArchiveStats}
+export interface ArchivesPayload {classes:ArchiveClass[];defaults:NormalizeParams;notice:string}
+export function readPage():Page{const v=new URLSearchParams(location.search).get('view');return v==='workspace'||v==='review'||v==='history'?v:'cover';}
 export function formatBytes(bytes:number){return bytes<1024?`${bytes} B`:bytes<1024*1024?`${(bytes/1024).toFixed(1)} KB`:`${(bytes/1024/1024).toFixed(1)} MB`;}
